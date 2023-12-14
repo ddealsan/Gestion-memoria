@@ -20,3 +20,18 @@ int main() {
         CloseHandle(hMapFile);
         exit(EXIT_FAILURE);
     }
+
+    pid_t pid = fork();
+
+    if (pid < 0) {
+        perror("fork");
+        UnmapViewOfFile(shared_memory);
+        CloseHandle(hMapFile);
+        exit(EXIT_FAILURE);
+    } else if (pid == 0) {
+        printf("Child reads: %s\n", (char*)shared_memory);
+        UnmapViewOfFile(shared_memory);
+        CloseHandle(hMapFile);
+        exit(EXIT_SUCCESS);
+    } else {
+        strcpy((char*)shared_memory, "Hello, child process!");
