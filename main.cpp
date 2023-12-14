@@ -36,7 +36,7 @@ int main() {
     } else {
         strcpy((char*)shared_memory, "Hello, child process!");
 
-        // Esperar a que el proceso hijo termine
+        // Esperar a que el proceso hijo termin
         WaitForSingleObject(pid, INFINITE);
 
         UnmapViewOfFile(shared_memory);
